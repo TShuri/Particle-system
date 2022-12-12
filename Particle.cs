@@ -12,8 +12,8 @@ namespace ParticleSystem
         public float X; // X координата положения частицы в пространстве
         public float Y; // Y координата положения частицы в пространстве
 
-        public float Direction; // направление движения
-        public float Speed; // скорость перемещения
+        public float SpeedX; // скорость перемещения по оси X
+        public float SpeedY; // скорость перемещения по оси Y
 
         public float Life; // запас здоровья частицы
 
@@ -23,8 +23,13 @@ namespace ParticleSystem
         // конструктор по умолчанию будет создавать кастомную частицу
         public Particle()
         {
-            Direction = rand.Next(360);
-            Speed = 1 + rand.Next(10);
+            var direction = (double)rand.Next(360);
+            var speed = 1 + rand.Next(10);
+
+            // рассчитываем вектор скорости
+            SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
+            SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
+
             Radius = 2 + rand.Next(10);
             Life = 20 + rand.Next(100); // Добавили исходный запас здоровья от 20 до 120
         }

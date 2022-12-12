@@ -2,87 +2,59 @@ namespace ParticleSystem
 {
     public partial class Form1 : Form
     {
-        List<Particle> particles = new List<Particle>();
+        Emitter emitter;
+
         public Form1()
         {
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
 
-            
-        }
-
-        private void UpdateState()
-        {
-            foreach (var particle in particles)
+            emitter = new TopEmitter
             {
-                particle.Life -= 1; // уменьшаю здоровье
-                                    // если здоровье кончилось
-                if (particle.Life < 0)
-                {
-                    particle.Life = 20 + Particle.rand.Next(100);
-                    particle.X = MousePositionX;
-                    particle.Y = MousePositionY;
-                    particle.Direction = Particle.rand.Next(360);
-                    particle.Speed = 1 + Particle.rand.Next(10);
-                    particle.Radius = 2 + Particle.rand.Next(10);
-                }
-                else
-                {
-                    var directionInRadians = particle.Direction / 180 * Math.PI;
-                    particle.X += (float)(particle.Speed * Math.Cos(directionInRadians));
-                    particle.Y -= (float)(particle.Speed * Math.Sin(directionInRadians));
-                }
-            }
-
-            for (var i = 0; i < 10; ++i)
+                Width = picDisplay.Width,
+                GravitationY = 0.25f
+            };
+            /*
+            emitter.impactPoints.Add(new GravityPoint
             {
-                if (particles.Count < 500) // пока частиц меньше 500 генерируем новые
-                {
-                    var particle = new ParticleColorful();
-                    particle.FromColor = Color.Yellow;
-                    particle.ToColor = Color.FromArgb(0, Color.Magenta);
-                    particle.X = MousePositionX;
-                    particle.Y = MousePositionY;
-                    particles.Add(particle);
-                }
-                else
-                {
-                    break; // а если частиц уже 500 штук, то ничего не генерирую
-                }
-            }
-        }
+                X = (float)(picDisplay.Width * 0.25),
+                Y = picDisplay.Height / 2
+            });
 
-        // функция рендеринга
-        private void Render(Graphics g)
-        {
-            // утащили сюда отрисовку частиц
-            foreach (var particle in particles)
+            // в центре антигравитон
+            emitter.impactPoints.Add(new AntiGravityPoint
             {
-                particle.Draw(g);
-            }
+                X = picDisplay.Width / 2,
+                Y = picDisplay.Height / 2
+            });
+
+            // снова гравитон
+            emitter.impactPoints.Add(new GravityPoint
+            {
+                X = (float)(picDisplay.Width * 0.75),
+                Y = picDisplay.Height / 2
+            });
+            */
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            UpdateState(); // каждый тик обновляем систему
+            emitter.UpdateState(); // Обновление эмиттера
 
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
                 g.Clear(Color.Black);
-                Render(g); // рендерим систему
+                emitter.Render(g); // рендерим систему
 
             }
 
             picDisplay.Invalidate();
         }
 
-
-        private int MousePositionX = 0;
-        private int MousePositionY = 0;
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
-            MousePositionX = e.X;
-            MousePositionY = e.Y;
+            emitter.MousePositionX = e.X;
+            emitter.MousePositionY = e.Y;
         }
     }
 }
