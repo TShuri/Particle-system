@@ -16,6 +16,7 @@ namespace ParticleSystem
         public float SpeedY; // скорость перемещения по оси Y
 
         public float Life; // запас здоровья частицы
+        public Color color;
 
         // добавили генератор случайных чисел
         public static Random rand = new Random();
@@ -75,9 +76,15 @@ namespace ParticleSystem
         {
             float k = Math.Min(1f, Life / 100);
 
+            var updateColor = MixColor(ToColor, FromColor, k);
+            
             // так как k уменьшается от 1 до 0, то порядок цветов обратный
-            var color = MixColor(ToColor, FromColor, k);
-            var b = new SolidBrush(color);
+            if (color != FromColor)
+            {
+                updateColor = MixColor(ToColor, color, k);
+            }
+            
+            var b = new SolidBrush(updateColor);
 
             g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);
 

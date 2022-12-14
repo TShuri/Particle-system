@@ -11,7 +11,7 @@ namespace ParticleSystem
         public int ParticlesCount = 100;
 
         public float GravitationX = 0;
-        public float GravitationY = 1;
+        public float GravitationY = 0;
 
         List<Particle> particles = new List<Particle>();
         public List<IImpactPoint> impactPoints = new List<IImpactPoint>();
@@ -47,6 +47,10 @@ namespace ParticleSystem
                 }
                 else
                 {
+                    particle.X += particle.SpeedX;
+                    particle.Y += particle.SpeedY;
+
+                    particle.Life -= 1;
                     foreach (var point in impactPoints)
                     {
                         point.ImpactParticle(particle);
@@ -54,9 +58,6 @@ namespace ParticleSystem
 
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
-
-                    particle.X += particle.SpeedX;
-                    particle.Y += particle.SpeedY;
                 }
             }
 
@@ -85,6 +86,7 @@ namespace ParticleSystem
         public virtual void ResetParticle(Particle particle)
         {
             particle.Life = Particle.rand.Next(LifeMin, LifeMax);
+            particle.color = ColorFrom;
 
             particle.X = X;
             particle.Y = Y;

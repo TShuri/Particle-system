@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace ParticleSystem
 {
@@ -10,6 +11,12 @@ namespace ParticleSystem
     {
         public float outX, outY;
         public float radius = 100;
+
+        public int Direction = 0;
+        public int Spreading = 360;
+        public int SpeedMin = 1;
+        public int SpeedMax = 10;
+
         public override void ImpactParticle(Particle particle)
         {
             float tX = X - particle.X;
@@ -18,8 +25,17 @@ namespace ParticleSystem
 
             if (r + particle.Radius < radius / 2) // если частица оказалось внутри окружности
             {
-                particle.X = outX;
-                particle.Y = outY;
+                particle.X = outX + tX;
+                particle.Y = outY + tY;
+
+                var direction = Direction
+                + (double)Particle.rand.Next(Spreading)
+                - Spreading / 2;
+
+                var speed = Particle.rand.Next(SpeedMin, SpeedMax);
+
+                particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
+                particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
             }
         }
 
