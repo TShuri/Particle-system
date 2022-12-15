@@ -106,11 +106,13 @@ namespace ParticleSystem
         private void tbTeleport_Scroll(object sender, EventArgs e) // Трек-бар для радиуса телепорта
         {
             teleport.radius = tbTeleport.Value;
+            lblRadiusTP.Text = $"{tbTeleport.Value}";
         }
 
         private void tbDirectionTP_Scroll(object sender, EventArgs e) // Трек-бар для направления выхода телепорта
         {
             teleport.Direction = tbDirectionTP.Value;
+            lblDirectionTP.Text = $"{tbDirectionTP.Value}°";
         }
 
         private void picDisplay_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -166,6 +168,7 @@ namespace ParticleSystem
         private void tbColorDit_Scroll(object sender, EventArgs e) // Радиус точки закрашивания
         {
             changeColor.radius = tbColorDit.Value;
+            lblRadiusCD.Text = $"{tbColorDit.Value/2}";
         }
 
         private void buttonColor_Click(object sender, EventArgs e) // Выбор цвета точки закрашивания
@@ -173,6 +176,12 @@ namespace ParticleSystem
             colorDialog1.ShowDialog();
             changeColor.color = colorDialog1.Color;
             buttonColor.BackColor = colorDialog1.Color;
+        }
+
+        private void tbParticlesCount_Scroll(object sender, EventArgs e)
+        {
+            emitter.ParticlesPerTick = tbParticlesCount.Value;
+            lblParticles.Text = $"{tbParticlesCount.Value}";
         }
     }
 }
