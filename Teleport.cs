@@ -43,14 +43,14 @@ namespace ParticleSystem
         {
             // буду рисовать окружность с диаметром равным Power
             g.DrawEllipse(
-                   new Pen(Color.Red),
+                   new Pen(Color.Blue, 2),
                    X - radius / 2,
                    Y - radius / 2,
                    radius,
                    radius
                );
             g.DrawEllipse(
-                   new Pen(Color.Red),
+                   new Pen(Color.Yellow, 2),
                    outX - radius / 2,
                    outY - radius / 2,
                    radius,

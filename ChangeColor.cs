@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +13,7 @@ namespace ParticleSystem
     {
         public float radius = 200;
         public Color color = Color.Green;
-
+        
         public override void ImpactParticle(Particle particle)
         {
             float tX = X - particle.X;
@@ -27,7 +29,7 @@ namespace ParticleSystem
         public override void Render(Graphics g)
         {
             g.DrawEllipse(
-                   new Pen(Color.Red),
+                   new Pen(color, 2),
                    X - radius / 2,
                    Y - radius / 2,
                    radius,
