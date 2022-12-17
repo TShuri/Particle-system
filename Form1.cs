@@ -13,6 +13,8 @@ namespace ParticleSystem
         Teleport teleport;
         ChangeColor changeColor;
         Counter counter;
+        Radar radar;
+        MouseEventHandler mouseEventHandler;
 
         Brush brush = new TextureBrush(Properties.Resources.Winter);
 
@@ -108,6 +110,11 @@ namespace ParticleSystem
                 }
                 picDisplay.Invalidate(); // отображаем рисунок
             }
+            if (rbRadar.Checked)
+            {
+                radar.X = e.X;
+                radar.Y = e.Y;
+            }
         }
 
         private void tbDirection_Scroll(object sender, EventArgs e) // Трек-бар для направления эммитера
@@ -128,7 +135,7 @@ namespace ParticleSystem
             lblDirectionTP.Text = $"{tbDirectionTP.Value}°";
         }
 
-        private void picDisplay_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void picDisplay_MouseDoubleClick(object sender, MouseEventArgs e) // При двойном клике мыши
         {
             rbEmitter.Checked = !rbEmitter.Checked; // Вкл/выкл следования эмиттера за мышкой
         }
@@ -175,12 +182,10 @@ namespace ParticleSystem
             if (cbSnow.Checked)
             {
                 topEmitter.ParticlesPerTick = 1;
-                //timer1.Start();
             }
             else
             {
                 topEmitter.ParticlesPerTick = 0;
-                //timer1.Stop();
             }
         }
 
@@ -221,6 +226,38 @@ namespace ParticleSystem
                     _emitter.debug = false;
                 }
                 timer1.Start();
+            }
+        }
+
+        private void rbRadar_CheckedChanged(object sender, EventArgs e) // Вкл/выкл радара
+        {
+            if (rbRadar.Checked)
+            {
+                radar = new Radar
+                {
+                    X = picDisplay.Width / 2,
+                    Y = picDisplay.Height / 2
+                };
+                topEmitter.impactPoints.Add(radar);
+
+                mouseEventHandler = new MouseEventHandler(radar_MouseWheel);
+                this.MouseWheel += mouseEventHandler;
+            }
+            else
+            {
+                topEmitter.impactPoints.Remove(radar);
+                this.MouseWheel -= mouseEventHandler;
+            }
+        }
+        void radar_MouseWheel(object sender, MouseEventArgs e) // Событие при прокрутке колесика для 
+        {                                                      // изменения радиуса радара
+            if (e.Delta > 0)
+            {
+                radar.radius += 5;
+            }
+            else
+            {
+                radar.radius -= 5;
             }
         }
     }

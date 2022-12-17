@@ -22,6 +22,7 @@ namespace ParticleSystem
         public static Random rand = new Random();
 
         public bool debug = false;
+        public bool inRadar = false;
 
         // конструктор по умолчанию будет создавать кастомную частицу
         public Particle()
@@ -103,14 +104,19 @@ namespace ParticleSystem
         {
             float k = Math.Min(1f, Life / 100);
 
-            var updateColor = MixColor(ToColor, FromColor, k);
+            var updateColor = MixColor(ToColor, FromColor, k); // Базовый цвет точки совпадает с fromColor
             
             // так как k уменьшается от 1 до 0, то порядок цветов обратный
-            if (color != FromColor)
+            if (color != FromColor) // (Точка закрашивания поменяла цвет) Если базовый цвет не равен fromColor
             {
                 updateColor = MixColor(ToColor, color, k);
             }
             
+            if (inRadar) // (Радар закрасил точку)
+            {
+                updateColor = MixColor(color, color, k);
+            }
+
             var b = new SolidBrush(updateColor);
 
             g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);

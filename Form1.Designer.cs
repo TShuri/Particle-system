@@ -58,8 +58,8 @@
             this.lblRadiusCD = new System.Windows.Forms.Label();
             this.lblColor = new System.Windows.Forms.Label();
             this.lblControl = new System.Windows.Forms.Label();
-            this.lblDebugMode = new System.Windows.Forms.Label();
             this.cbDebug = new System.Windows.Forms.CheckBox();
+            this.rbRadar = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbTeleport)).BeginInit();
@@ -87,7 +87,7 @@
             // 
             // tbDirection
             // 
-            this.tbDirection.Location = new System.Drawing.Point(237, 763);
+            this.tbDirection.Location = new System.Drawing.Point(266, 763);
             this.tbDirection.Maximum = 359;
             this.tbDirection.Name = "tbDirection";
             this.tbDirection.Size = new System.Drawing.Size(205, 69);
@@ -97,7 +97,7 @@
             // lblDirection
             // 
             this.lblDirection.AutoSize = true;
-            this.lblDirection.Location = new System.Drawing.Point(448, 763);
+            this.lblDirection.Location = new System.Drawing.Point(477, 763);
             this.lblDirection.Name = "lblDirection";
             this.lblDirection.Size = new System.Drawing.Size(22, 25);
             this.lblDirection.TabIndex = 2;
@@ -105,7 +105,7 @@
             // 
             // tbTeleport
             // 
-            this.tbTeleport.Location = new System.Drawing.Point(517, 763);
+            this.tbTeleport.Location = new System.Drawing.Point(546, 763);
             this.tbTeleport.Maximum = 100;
             this.tbTeleport.Name = "tbTeleport";
             this.tbTeleport.Size = new System.Drawing.Size(205, 69);
@@ -128,7 +128,7 @@
             // rbTeleport
             // 
             this.rbTeleport.AutoSize = true;
-            this.rbTeleport.Location = new System.Drawing.Point(12, 854);
+            this.rbTeleport.Location = new System.Drawing.Point(12, 823);
             this.rbTeleport.Name = "rbTeleport";
             this.rbTeleport.Size = new System.Drawing.Size(100, 29);
             this.rbTeleport.TabIndex = 5;
@@ -137,7 +137,7 @@
             // 
             // tbDirectionTP
             // 
-            this.tbDirectionTP.Location = new System.Drawing.Point(517, 838);
+            this.tbDirectionTP.Location = new System.Drawing.Point(546, 838);
             this.tbDirectionTP.Maximum = 359;
             this.tbDirectionTP.Name = "tbDirectionTP";
             this.tbDirectionTP.Size = new System.Drawing.Size(205, 69);
@@ -149,7 +149,7 @@
             this.cbSnow.AutoSize = true;
             this.cbSnow.Checked = true;
             this.cbSnow.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbSnow.Location = new System.Drawing.Point(1120, 701);
+            this.cbSnow.Location = new System.Drawing.Point(1110, 701);
             this.cbSnow.Name = "cbSnow";
             this.cbSnow.Size = new System.Drawing.Size(82, 29);
             this.cbSnow.TabIndex = 7;
@@ -170,7 +170,7 @@
             // 
             // tbColorDit
             // 
-            this.tbColorDit.Location = new System.Drawing.Point(790, 763);
+            this.tbColorDit.Location = new System.Drawing.Point(819, 763);
             this.tbColorDit.Maximum = 200;
             this.tbColorDit.Name = "tbColorDit";
             this.tbColorDit.Size = new System.Drawing.Size(193, 69);
@@ -180,7 +180,7 @@
             // 
             // buttonColor
             // 
-            this.buttonColor.Location = new System.Drawing.Point(873, 822);
+            this.buttonColor.Location = new System.Drawing.Point(902, 822);
             this.buttonColor.Name = "buttonColor";
             this.buttonColor.Size = new System.Drawing.Size(30, 30);
             this.buttonColor.TabIndex = 11;
@@ -190,7 +190,7 @@
             // rbCounter
             // 
             this.rbCounter.AutoSize = true;
-            this.rbCounter.Location = new System.Drawing.Point(12, 819);
+            this.rbCounter.Location = new System.Drawing.Point(126, 749);
             this.rbCounter.Name = "rbCounter";
             this.rbCounter.Size = new System.Drawing.Size(100, 29);
             this.rbCounter.TabIndex = 12;
@@ -202,7 +202,7 @@
             // 
             this.lblEmitter.AutoSize = true;
             this.lblEmitter.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblEmitter.Location = new System.Drawing.Point(303, 700);
+            this.lblEmitter.Location = new System.Drawing.Point(332, 700);
             this.lblEmitter.Name = "lblEmitter";
             this.lblEmitter.Size = new System.Drawing.Size(88, 28);
             this.lblEmitter.TabIndex = 13;
@@ -211,7 +211,7 @@
             // lblEmitterDirection
             // 
             this.lblEmitterDirection.AutoSize = true;
-            this.lblEmitterDirection.Location = new System.Drawing.Point(249, 735);
+            this.lblEmitterDirection.Location = new System.Drawing.Point(278, 735);
             this.lblEmitterDirection.Name = "lblEmitterDirection";
             this.lblEmitterDirection.Size = new System.Drawing.Size(83, 25);
             this.lblEmitterDirection.TabIndex = 14;
@@ -228,7 +228,7 @@
             // 
             // tbParticlesCount
             // 
-            this.tbParticlesCount.Location = new System.Drawing.Point(237, 838);
+            this.tbParticlesCount.Location = new System.Drawing.Point(266, 838);
             this.tbParticlesCount.Name = "tbParticlesCount";
             this.tbParticlesCount.Size = new System.Drawing.Size(205, 69);
             this.tbParticlesCount.TabIndex = 16;
@@ -238,7 +238,7 @@
             // lblParticles
             // 
             this.lblParticles.AutoSize = true;
-            this.lblParticles.Location = new System.Drawing.Point(448, 838);
+            this.lblParticles.Location = new System.Drawing.Point(477, 838);
             this.lblParticles.Name = "lblParticles";
             this.lblParticles.Size = new System.Drawing.Size(32, 25);
             this.lblParticles.TabIndex = 17;
@@ -248,7 +248,7 @@
             // 
             this.lblTeleport.AutoSize = true;
             this.lblTeleport.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTeleport.Location = new System.Drawing.Point(590, 700);
+            this.lblTeleport.Location = new System.Drawing.Point(619, 700);
             this.lblTeleport.Name = "lblTeleport";
             this.lblTeleport.Size = new System.Drawing.Size(101, 28);
             this.lblTeleport.TabIndex = 18;
@@ -257,7 +257,7 @@
             // lblRadiusTeleport
             // 
             this.lblRadiusTeleport.AutoSize = true;
-            this.lblRadiusTeleport.Location = new System.Drawing.Point(529, 735);
+            this.lblRadiusTeleport.Location = new System.Drawing.Point(558, 735);
             this.lblRadiusTeleport.Name = "lblRadiusTeleport";
             this.lblRadiusTeleport.Size = new System.Drawing.Size(65, 25);
             this.lblRadiusTeleport.TabIndex = 19;
@@ -266,7 +266,7 @@
             // lblOutDirection
             // 
             this.lblOutDirection.AutoSize = true;
-            this.lblOutDirection.Location = new System.Drawing.Point(529, 810);
+            this.lblOutDirection.Location = new System.Drawing.Point(558, 810);
             this.lblOutDirection.Name = "lblOutDirection";
             this.lblOutDirection.Size = new System.Drawing.Size(116, 25);
             this.lblOutDirection.TabIndex = 20;
@@ -275,7 +275,7 @@
             // lblRadiusTP
             // 
             this.lblRadiusTP.AutoSize = true;
-            this.lblRadiusTP.Location = new System.Drawing.Point(728, 763);
+            this.lblRadiusTP.Location = new System.Drawing.Point(757, 763);
             this.lblRadiusTP.Name = "lblRadiusTP";
             this.lblRadiusTP.Size = new System.Drawing.Size(42, 25);
             this.lblRadiusTP.TabIndex = 21;
@@ -284,7 +284,7 @@
             // lblDirectionTP
             // 
             this.lblDirectionTP.AutoSize = true;
-            this.lblDirectionTP.Location = new System.Drawing.Point(728, 838);
+            this.lblDirectionTP.Location = new System.Drawing.Point(757, 838);
             this.lblDirectionTP.Name = "lblDirectionTP";
             this.lblDirectionTP.Size = new System.Drawing.Size(22, 25);
             this.lblDirectionTP.TabIndex = 22;
@@ -294,7 +294,7 @@
             // 
             this.lblColorDit.AutoSize = true;
             this.lblColorDit.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblColorDit.Location = new System.Drawing.Point(841, 700);
+            this.lblColorDit.Location = new System.Drawing.Point(870, 700);
             this.lblColorDit.Name = "lblColorDit";
             this.lblColorDit.Size = new System.Drawing.Size(104, 28);
             this.lblColorDit.TabIndex = 23;
@@ -303,7 +303,7 @@
             // lblRadiusColorDIt
             // 
             this.lblRadiusColorDIt.AutoSize = true;
-            this.lblRadiusColorDIt.Location = new System.Drawing.Point(799, 735);
+            this.lblRadiusColorDIt.Location = new System.Drawing.Point(828, 735);
             this.lblRadiusColorDIt.Name = "lblRadiusColorDIt";
             this.lblRadiusColorDIt.Size = new System.Drawing.Size(65, 25);
             this.lblRadiusColorDIt.TabIndex = 24;
@@ -312,7 +312,7 @@
             // lblRadiusCD
             // 
             this.lblRadiusCD.AutoSize = true;
-            this.lblRadiusCD.Location = new System.Drawing.Point(989, 763);
+            this.lblRadiusCD.Location = new System.Drawing.Point(1018, 763);
             this.lblRadiusCD.Name = "lblRadiusCD";
             this.lblRadiusCD.Size = new System.Drawing.Size(42, 25);
             this.lblRadiusCD.TabIndex = 25;
@@ -321,7 +321,7 @@
             // lblColor
             // 
             this.lblColor.AutoSize = true;
-            this.lblColor.Location = new System.Drawing.Point(799, 822);
+            this.lblColor.Location = new System.Drawing.Point(828, 822);
             this.lblColor.Name = "lblColor";
             this.lblColor.Size = new System.Drawing.Size(55, 25);
             this.lblColor.TabIndex = 26;
@@ -337,20 +337,10 @@
             this.lblControl.TabIndex = 27;
             this.lblControl.Text = "Control";
             // 
-            // lblDebugMode
-            // 
-            this.lblDebugMode.AutoSize = true;
-            this.lblDebugMode.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblDebugMode.Location = new System.Drawing.Point(1208, 12);
-            this.lblDebugMode.Name = "lblDebugMode";
-            this.lblDebugMode.Size = new System.Drawing.Size(153, 28);
-            this.lblDebugMode.TabIndex = 28;
-            this.lblDebugMode.Text = "Debug mode";
-            // 
             // cbDebug
             // 
             this.cbDebug.AutoSize = true;
-            this.cbDebug.Location = new System.Drawing.Point(1208, 43);
+            this.cbDebug.Location = new System.Drawing.Point(1110, 736);
             this.cbDebug.Name = "cbDebug";
             this.cbDebug.Size = new System.Drawing.Size(92, 29);
             this.cbDebug.TabIndex = 29;
@@ -358,13 +348,25 @@
             this.cbDebug.UseVisualStyleBackColor = true;
             this.cbDebug.CheckedChanged += new System.EventHandler(this.cbDebug_CheckedChanged);
             // 
+            // rbRadar
+            // 
+            this.rbRadar.AutoSize = true;
+            this.rbRadar.Location = new System.Drawing.Point(126, 784);
+            this.rbRadar.Name = "rbRadar";
+            this.rbRadar.Size = new System.Drawing.Size(83, 29);
+            this.rbRadar.TabIndex = 30;
+            this.rbRadar.TabStop = true;
+            this.rbRadar.Text = "Radar";
+            this.rbRadar.UseVisualStyleBackColor = true;
+            this.rbRadar.CheckedChanged += new System.EventHandler(this.rbRadar_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1367, 917);
+            this.ClientSize = new System.Drawing.Size(1219, 917);
+            this.Controls.Add(this.rbRadar);
             this.Controls.Add(this.cbDebug);
-            this.Controls.Add(this.lblDebugMode);
             this.Controls.Add(this.lblControl);
             this.Controls.Add(this.lblColor);
             this.Controls.Add(this.lblRadiusCD);
@@ -436,7 +438,7 @@
         private Label lblRadiusCD;
         private Label lblColor;
         private Label lblControl;
-        private Label lblDebugMode;
         private CheckBox cbDebug;
+        private RadioButton rbRadar;
     }
 }
