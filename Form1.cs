@@ -1,5 +1,6 @@
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
+using System.Diagnostics;
 using System.Runtime.Versioning;
 
 namespace ParticleSystem
@@ -88,12 +89,24 @@ namespace ParticleSystem
             picDisplay.Invalidate();
         }
 
-        private void picDisplay_MouseMove(object sender, MouseEventArgs e) // Следование эммитера за мышкой
+        private void picDisplay_MouseMove(object sender, MouseEventArgs e) // Следование за мышкой
         {
             if (rbEmitter.Checked)
             {
                 emitter.X = e.X;
                 emitter.Y = e.Y;
+            }
+            if (cbDebug.Checked)
+            {
+                int x = e.X, y = e.Y;
+                using (var g = Graphics.FromImage(picDisplay.Image))
+                {
+                    foreach (var _emitter in emitters)
+                    {
+                        _emitter.InfoPartical(g, x ,y);
+                    }
+                }
+                picDisplay.Invalidate(); // отображаем рисунок
             }
         }
 
@@ -140,14 +153,20 @@ namespace ParticleSystem
                 changeColor.Y = e.Y;
             }
 
-            if (e.Button == MouseButtons.Left && rbCounter.Checked)
+            if (e.Button == MouseButtons.Left && rbCounter.Checked) // Добавление счетчика
             {
+
                 counter = new Counter
                 {
                     X = e.X,
                     Y = e.Y,
                 };
                 emitter.impactPoints.Add(counter);
+            }
+
+            if (e.Button == MouseButtons.Right && rbCounter.Checked) // Удаление счетчика
+            {
+                emitter.DeleteCounter(e.X, e.Y);
             }
         }
 
@@ -178,10 +197,31 @@ namespace ParticleSystem
             buttonColor.BackColor = colorDialog1.Color;
         }
 
-        private void tbParticlesCount_Scroll(object sender, EventArgs e)
+        private void tbParticlesCount_Scroll(object sender, EventArgs e) // Количество точек
         {
             emitter.ParticlesPerTick = tbParticlesCount.Value;
             lblParticles.Text = $"{tbParticlesCount.Value}";
+        }
+
+        private void cbDebug_CheckedChanged(object sender, EventArgs e) // Debage типо
+        {
+            if (cbDebug.Checked)
+            {
+                foreach (var _emitter in emitters)
+                {
+                    _emitter.debug = true;
+                }
+                timer1_Tick(sender, e);
+                timer1.Stop();
+            }
+            else
+            {
+                foreach (var _emitter in emitters)
+                {
+                    _emitter.debug = false;
+                }
+                timer1.Start();
+            }
         }
     }
 }

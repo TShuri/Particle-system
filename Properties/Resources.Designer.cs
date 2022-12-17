@@ -63,26 +63,6 @@ namespace ParticleSystem.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cat_closed {
-            get {
-                object obj = ResourceManager.GetObject("cat_closed", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap cat_opened {
-            get {
-                object obj = ResourceManager.GetObject("cat_opened", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap CatClosed {
             get {
                 object obj = ResourceManager.GetObject("CatClosed", resourceCulture);

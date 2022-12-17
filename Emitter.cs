@@ -31,12 +31,16 @@ namespace ParticleSystem
         public Color ColorFrom = Color.White; // начальный цвет частицы
         public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
 
-        public void UpdateState()
+        public bool debug = false;
+
+        public void UpdateState() // Обновление положения
         {
             int particlesToCreate = ParticlesPerTick;
 
             foreach (var particle in particles)
             {
+                particle.debug = this.debug;
+                
                 if (particle.Life <= 0)
                 {
                     if (particlesToCreate > 0)
@@ -70,7 +74,7 @@ namespace ParticleSystem
             }
         }
 
-        public void Render(Graphics g)
+        public void Render(Graphics g) // Рендер точек
         {
             foreach (var particle in particles)
             {
@@ -83,7 +87,7 @@ namespace ParticleSystem
             }
         }
 
-        public virtual void ResetParticle(Particle particle)
+        public virtual void ResetParticle(Particle particle) // Функция регенерации точки
         {
             particle.Life = Particle.rand.Next(LifeMin, LifeMax);
             particle.color = ColorFrom;
@@ -103,13 +107,37 @@ namespace ParticleSystem
             particle.Radius = Particle.rand.Next(RadiusMin, RadiusMax);
         }
 
-        public virtual Particle CreateParticle()
+        public virtual Particle CreateParticle() // Функция создания точки
         {
             var particle = new ParticleColorful();
             particle.FromColor = ColorFrom;
             particle.ToColor = ColorTo;
 
             return particle;
+        }
+
+        public void InfoPartical(Graphics g,  int x, int y) // Функция отображения информации о точке
+        {
+            foreach (var particle in particles)
+            {
+                particle.DrawInfo(g, x ,y);
+            }
+        }
+
+        public void DeleteCounter(int x, int y) // Функция удаления счетчика
+        {
+            foreach (var point in impactPoints)
+            {
+                if (point is Counter)
+                {
+                    Counter counter = point as Counter;
+                    if (counter.CheckRemove(x, y))
+                    {
+                        impactPoints.Remove(counter);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

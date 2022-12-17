@@ -13,7 +13,7 @@ namespace ParticleSystem
     {
         int count = 0;
 
-        HashSet<Particle> around = new HashSet<Particle>();
+        HashSet<Particle> around = new HashSet<Particle>(); // Множество точек, находящихся около кота
 
         static Brush CatClose = new TextureBrush(Properties.Resources.CatClosed);
         static Brush CatOpen = new TextureBrush(Properties.Resources.CatOpened);
@@ -25,11 +25,11 @@ namespace ParticleSystem
             float tY = Y - particle.Y;
             double r = Math.Sqrt(tX * tX + tY * tY); // считаем расстояние от центра точки до центра частицы
 
-            if (r + particle.Radius < 100) // если частица около кота
+            if (r + particle.Radius < 60) // Если частица около кота
             {
-                around.Add(particle);
+                around.Add(particle); // Добавляем в множество
             }
-            else
+            else // Если точка не рядом, но есть в множестве, то удаляем
             {
                 if (around.Contains(particle))
                 {
@@ -37,16 +37,16 @@ namespace ParticleSystem
                 }
             }
 
-            if (around.Count > 0)
+            if (around.Count > 0) // Если рядом есть точки
             {
-                Cat = CatOpen;
+                Cat = CatOpen; // Кот открыл рот
             }
             else
             {
-                Cat = CatClose;
+                Cat = CatClose; // Кот закрыл рот
             }
 
-            if (r + particle.Radius < 50) // если частица оказалось внутри окружности
+            if (r + particle.Radius < 50) // если частица оказалось внутри кота
             {
                 count++;
                 particle.Life = 0;
@@ -71,6 +71,15 @@ namespace ParticleSystem
             );
             matrix.Translate(-X+50, -Y+50); // смещаем ее обратно в пространстве
             g.Transform = matrix; // устанавливаем прежнуюю матрицу
+        }
+
+        public bool CheckRemove(int mouse_x, int mouse_y) // Проверяем удаляем кота по которому кликнули
+        {
+            if (((mouse_x - X) * (mouse_x - X) + (mouse_y - Y) * (mouse_y - Y)) < 50*50) // Если кликнули по коту
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }

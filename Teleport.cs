@@ -9,7 +9,7 @@ namespace ParticleSystem
 {
     public class Teleport : IImpactPoint
     {
-        public float outX, outY;
+        public float outX, outY; // Координаты выхода телепорта
         public float radius = 100;
 
         public int Direction = 0;

@@ -21,6 +21,8 @@ namespace ParticleSystem
         // добавили генератор случайных чисел
         public static Random rand = new Random();
 
+        public bool debug = false;
+
         // конструктор по умолчанию будет создавать кастомную частицу
         public Particle()
         {
@@ -51,6 +53,31 @@ namespace ParticleSystem
             g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);
 
             b.Dispose();
+        }
+
+        public void DrawSpeedVector(Graphics g)
+        {
+            g.DrawLine(new Pen(Color.OrangeRed, 1), X, Y, (int)(X + SpeedX * 4), (int)(Y + SpeedY * 4));
+        }
+
+        public void DrawInfo(Graphics g, int _x, int _y)
+        {
+            var x = Math.Abs(X - _x);
+            var y = Math.Abs(Y - _y);
+            var lenght = Math.Sqrt(x * x + y * y);
+
+            if (lenght < Radius)
+            {
+                var b = new SolidBrush(Color.SkyBlue);
+                g.FillRectangle(b, X, Y, 50, 50);
+
+                StringFormat stringFormat = new StringFormat();
+                stringFormat.Alignment = StringAlignment.Center;
+                stringFormat.LineAlignment = StringAlignment.Center;
+                g.DrawString("X: " + (int)X, new Font("Arial", 10), Brushes.Black, X + 25, Y + 10, stringFormat);
+                g.DrawString("Y: " + (int)Y, new Font("Arial", 10), Brushes.Black, X + 25, Y + 25, stringFormat);
+                g.DrawString("Life: " + (int)Life, new Font("Arial", 10), Brushes.Black, X + 25, Y + 40, stringFormat);
+            }
         }
     }
 
@@ -88,6 +115,11 @@ namespace ParticleSystem
 
             g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);
 
+            if (debug)
+            {
+                DrawSpeedVector(g);
+            }
+            
             b.Dispose();
         }
     }

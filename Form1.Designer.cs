@@ -58,6 +58,8 @@
             this.lblRadiusCD = new System.Windows.Forms.Label();
             this.lblColor = new System.Windows.Forms.Label();
             this.lblControl = new System.Windows.Forms.Label();
+            this.lblDebugMode = new System.Windows.Forms.Label();
+            this.cbDebug = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbTeleport)).BeginInit();
@@ -335,11 +337,34 @@
             this.lblControl.TabIndex = 27;
             this.lblControl.Text = "Control";
             // 
+            // lblDebugMode
+            // 
+            this.lblDebugMode.AutoSize = true;
+            this.lblDebugMode.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblDebugMode.Location = new System.Drawing.Point(1208, 12);
+            this.lblDebugMode.Name = "lblDebugMode";
+            this.lblDebugMode.Size = new System.Drawing.Size(153, 28);
+            this.lblDebugMode.TabIndex = 28;
+            this.lblDebugMode.Text = "Debug mode";
+            // 
+            // cbDebug
+            // 
+            this.cbDebug.AutoSize = true;
+            this.cbDebug.Location = new System.Drawing.Point(1208, 43);
+            this.cbDebug.Name = "cbDebug";
+            this.cbDebug.Size = new System.Drawing.Size(92, 29);
+            this.cbDebug.TabIndex = 29;
+            this.cbDebug.Text = "Debug";
+            this.cbDebug.UseVisualStyleBackColor = true;
+            this.cbDebug.CheckedChanged += new System.EventHandler(this.cbDebug_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1221, 917);
+            this.ClientSize = new System.Drawing.Size(1367, 917);
+            this.Controls.Add(this.cbDebug);
+            this.Controls.Add(this.lblDebugMode);
             this.Controls.Add(this.lblControl);
             this.Controls.Add(this.lblColor);
             this.Controls.Add(this.lblRadiusCD);
@@ -411,5 +436,7 @@
         private Label lblRadiusCD;
         private Label lblColor;
         private Label lblControl;
+        private Label lblDebugMode;
+        private CheckBox cbDebug;
     }
 }
