@@ -73,7 +73,7 @@ namespace ParticleSystem
             g.Transform = matrix; // устанавливаем прежнуюю матрицу
         }
 
-        public bool CheckRemove(int mouse_x, int mouse_y) // Проверяем удаляем кота по которому кликнули
+        public override bool CheckRemove(int mouse_x, int mouse_y) // Проверяем удаляем кота по которому кликнули
         {
             if (((mouse_x - X) * (mouse_x - X) + (mouse_y - Y) * (mouse_y - Y)) < 50*50) // Если кликнули по коту
             {

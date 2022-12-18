@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.picDisplay = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.tbDirection = new System.Windows.Forms.TrackBar();
-            this.lblDirection = new System.Windows.Forms.Label();
+            this.tbSpreading = new System.Windows.Forms.TrackBar();
+            this.lblSpreading = new System.Windows.Forms.Label();
             this.tbTeleport = new System.Windows.Forms.TrackBar();
             this.rbEmitter = new System.Windows.Forms.RadioButton();
             this.rbTeleport = new System.Windows.Forms.RadioButton();
@@ -44,7 +44,7 @@
             this.buttonColor = new System.Windows.Forms.Button();
             this.rbCounter = new System.Windows.Forms.RadioButton();
             this.lblEmitter = new System.Windows.Forms.Label();
-            this.lblEmitterDirection = new System.Windows.Forms.Label();
+            this.lblEmitterSpreading = new System.Windows.Forms.Label();
             this.lblEmitterParticles = new System.Windows.Forms.Label();
             this.tbParticlesCount = new System.Windows.Forms.TrackBar();
             this.lblParticles = new System.Windows.Forms.Label();
@@ -60,12 +60,16 @@
             this.lblControl = new System.Windows.Forms.Label();
             this.cbDebug = new System.Windows.Forms.CheckBox();
             this.rbRadar = new System.Windows.Forms.RadioButton();
+            this.rbBounce = new System.Windows.Forms.RadioButton();
+            this.buttonStep = new System.Windows.Forms.Button();
+            this.tbSimulate = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbSpreading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbTeleport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirectionTP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbColorDit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbParticlesCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbSimulate)).BeginInit();
             this.SuspendLayout();
             // 
             // picDisplay
@@ -85,28 +89,29 @@
             this.timer1.Interval = 40;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // tbDirection
+            // tbSpreading
             // 
-            this.tbDirection.Location = new System.Drawing.Point(266, 763);
-            this.tbDirection.Maximum = 359;
-            this.tbDirection.Name = "tbDirection";
-            this.tbDirection.Size = new System.Drawing.Size(205, 69);
-            this.tbDirection.TabIndex = 1;
-            this.tbDirection.Scroll += new System.EventHandler(this.tbDirection_Scroll);
+            this.tbSpreading.Location = new System.Drawing.Point(266, 763);
+            this.tbSpreading.Maximum = 359;
+            this.tbSpreading.Name = "tbSpreading";
+            this.tbSpreading.Size = new System.Drawing.Size(205, 69);
+            this.tbSpreading.TabIndex = 1;
+            this.tbSpreading.Value = 10;
+            this.tbSpreading.Scroll += new System.EventHandler(this.tbSpreading_Scroll);
             // 
-            // lblDirection
+            // lblSpreading
             // 
-            this.lblDirection.AutoSize = true;
-            this.lblDirection.Location = new System.Drawing.Point(477, 763);
-            this.lblDirection.Name = "lblDirection";
-            this.lblDirection.Size = new System.Drawing.Size(22, 25);
-            this.lblDirection.TabIndex = 2;
-            this.lblDirection.Text = "0";
+            this.lblSpreading.AutoSize = true;
+            this.lblSpreading.Location = new System.Drawing.Point(477, 763);
+            this.lblSpreading.Name = "lblSpreading";
+            this.lblSpreading.Size = new System.Drawing.Size(32, 25);
+            this.lblSpreading.TabIndex = 2;
+            this.lblSpreading.Text = "10";
             // 
             // tbTeleport
             // 
             this.tbTeleport.Location = new System.Drawing.Point(546, 763);
-            this.tbTeleport.Maximum = 100;
+            this.tbTeleport.Maximum = 200;
             this.tbTeleport.Name = "tbTeleport";
             this.tbTeleport.Size = new System.Drawing.Size(205, 69);
             this.tbTeleport.TabIndex = 3;
@@ -116,19 +121,18 @@
             // rbEmitter
             // 
             this.rbEmitter.AutoSize = true;
-            this.rbEmitter.Checked = true;
-            this.rbEmitter.Location = new System.Drawing.Point(12, 744);
+            this.rbEmitter.Location = new System.Drawing.Point(12, 749);
             this.rbEmitter.Name = "rbEmitter";
             this.rbEmitter.Size = new System.Drawing.Size(93, 29);
             this.rbEmitter.TabIndex = 4;
-            this.rbEmitter.TabStop = true;
             this.rbEmitter.Text = "Emitter";
             this.rbEmitter.UseVisualStyleBackColor = true;
+            this.rbEmitter.CheckedChanged += new System.EventHandler(this.rbEmitter_CheckedChanged);
             // 
             // rbTeleport
             // 
             this.rbTeleport.AutoSize = true;
-            this.rbTeleport.Location = new System.Drawing.Point(12, 823);
+            this.rbTeleport.Location = new System.Drawing.Point(12, 818);
             this.rbTeleport.Name = "rbTeleport";
             this.rbTeleport.Size = new System.Drawing.Size(100, 29);
             this.rbTeleport.TabIndex = 5;
@@ -164,7 +168,6 @@
             this.rbColorDit.Name = "rbColorDit";
             this.rbColorDit.Size = new System.Drawing.Size(108, 29);
             this.rbColorDit.TabIndex = 8;
-            this.rbColorDit.TabStop = true;
             this.rbColorDit.Text = "Color Dit";
             this.rbColorDit.UseVisualStyleBackColor = true;
             // 
@@ -194,7 +197,6 @@
             this.rbCounter.Name = "rbCounter";
             this.rbCounter.Size = new System.Drawing.Size(100, 29);
             this.rbCounter.TabIndex = 12;
-            this.rbCounter.TabStop = true;
             this.rbCounter.Text = "Counter";
             this.rbCounter.UseVisualStyleBackColor = true;
             // 
@@ -208,19 +210,19 @@
             this.lblEmitter.TabIndex = 13;
             this.lblEmitter.Text = "Emitter";
             // 
-            // lblEmitterDirection
+            // lblEmitterSpreading
             // 
-            this.lblEmitterDirection.AutoSize = true;
-            this.lblEmitterDirection.Location = new System.Drawing.Point(278, 735);
-            this.lblEmitterDirection.Name = "lblEmitterDirection";
-            this.lblEmitterDirection.Size = new System.Drawing.Size(83, 25);
-            this.lblEmitterDirection.TabIndex = 14;
-            this.lblEmitterDirection.Text = "Direction";
+            this.lblEmitterSpreading.AutoSize = true;
+            this.lblEmitterSpreading.Location = new System.Drawing.Point(278, 735);
+            this.lblEmitterSpreading.Name = "lblEmitterSpreading";
+            this.lblEmitterSpreading.Size = new System.Drawing.Size(93, 25);
+            this.lblEmitterSpreading.TabIndex = 14;
+            this.lblEmitterSpreading.Text = "Spreading";
             // 
             // lblEmitterParticles
             // 
             this.lblEmitterParticles.AutoSize = true;
-            this.lblEmitterParticles.Location = new System.Drawing.Point(249, 810);
+            this.lblEmitterParticles.Location = new System.Drawing.Point(278, 810);
             this.lblEmitterParticles.Name = "lblEmitterParticles";
             this.lblEmitterParticles.Size = new System.Drawing.Size(75, 25);
             this.lblEmitterParticles.TabIndex = 15;
@@ -355,16 +357,55 @@
             this.rbRadar.Name = "rbRadar";
             this.rbRadar.Size = new System.Drawing.Size(83, 29);
             this.rbRadar.TabIndex = 30;
-            this.rbRadar.TabStop = true;
             this.rbRadar.Text = "Radar";
             this.rbRadar.UseVisualStyleBackColor = true;
             this.rbRadar.CheckedChanged += new System.EventHandler(this.rbRadar_CheckedChanged);
+            // 
+            // rbBounce
+            // 
+            this.rbBounce.AutoSize = true;
+            this.rbBounce.Location = new System.Drawing.Point(126, 818);
+            this.rbBounce.Name = "rbBounce";
+            this.rbBounce.Size = new System.Drawing.Size(95, 29);
+            this.rbBounce.TabIndex = 31;
+            this.rbBounce.Text = "Bounce";
+            this.rbBounce.UseVisualStyleBackColor = true;
+            this.rbBounce.CheckedChanged += new System.EventHandler(this.rbBounce_CheckedChanged);
+            // 
+            // buttonStep
+            // 
+            this.buttonStep.Enabled = false;
+            this.buttonStep.Location = new System.Drawing.Point(1090, 771);
+            this.buttonStep.Name = "buttonStep";
+            this.buttonStep.Size = new System.Drawing.Size(112, 34);
+            this.buttonStep.TabIndex = 32;
+            this.buttonStep.Text = "Step";
+            this.buttonStep.UseVisualStyleBackColor = true;
+            this.buttonStep.Visible = false;
+            this.buttonStep.Click += new System.EventHandler(this.buttonStep_Click);
+            // 
+            // tbSimulate
+            // 
+            this.tbSimulate.Enabled = false;
+            this.tbSimulate.Location = new System.Drawing.Point(1123, 810);
+            this.tbSimulate.Name = "tbSimulate";
+            this.tbSimulate.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.tbSimulate.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.tbSimulate.Size = new System.Drawing.Size(69, 97);
+            this.tbSimulate.TabIndex = 33;
+            this.tbSimulate.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.tbSimulate.Value = 10;
+            this.tbSimulate.Visible = false;
+            this.tbSimulate.Scroll += new System.EventHandler(this.tbSimulate_Scroll);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1219, 917);
+            this.Controls.Add(this.tbSimulate);
+            this.Controls.Add(this.buttonStep);
+            this.Controls.Add(this.rbBounce);
             this.Controls.Add(this.rbRadar);
             this.Controls.Add(this.cbDebug);
             this.Controls.Add(this.lblControl);
@@ -380,7 +421,7 @@
             this.Controls.Add(this.lblParticles);
             this.Controls.Add(this.tbParticlesCount);
             this.Controls.Add(this.lblEmitterParticles);
-            this.Controls.Add(this.lblEmitterDirection);
+            this.Controls.Add(this.lblEmitterSpreading);
             this.Controls.Add(this.lblEmitter);
             this.Controls.Add(this.rbCounter);
             this.Controls.Add(this.buttonColor);
@@ -391,17 +432,18 @@
             this.Controls.Add(this.rbTeleport);
             this.Controls.Add(this.rbEmitter);
             this.Controls.Add(this.tbTeleport);
-            this.Controls.Add(this.lblDirection);
-            this.Controls.Add(this.tbDirection);
+            this.Controls.Add(this.lblSpreading);
+            this.Controls.Add(this.tbSpreading);
             this.Controls.Add(this.picDisplay);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbSpreading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbTeleport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirectionTP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbColorDit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbParticlesCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbSimulate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -411,8 +453,8 @@
 
         private PictureBox picDisplay;
         private System.Windows.Forms.Timer timer1;
-        private TrackBar tbDirection;
-        private Label lblDirection;
+        private TrackBar tbSpreading;
+        private Label lblSpreading;
         private TrackBar tbTeleport;
         private RadioButton rbEmitter;
         private RadioButton rbTeleport;
@@ -424,7 +466,7 @@
         private Button buttonColor;
         private RadioButton rbCounter;
         private Label lblEmitter;
-        private Label lblEmitterDirection;
+        private Label lblEmitterSpreading;
         private Label lblEmitterParticles;
         private TrackBar tbParticlesCount;
         private Label lblParticles;
@@ -440,5 +482,8 @@
         private Label lblControl;
         private CheckBox cbDebug;
         private RadioButton rbRadar;
+        private RadioButton rbBounce;
+        private Button buttonStep;
+        private TrackBar tbSimulate;
     }
 }

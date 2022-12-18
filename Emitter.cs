@@ -120,20 +120,19 @@ namespace ParticleSystem
         {
             foreach (var particle in particles)
             {
-                particle.DrawInfo(g, x ,y);
+                particle.DrawInfo(g, x, y);
             }
         }
 
-        public void DeleteCounter(int x, int y) // Функция удаления счетчика
+        public void Delete<type>(int x, int y) // Функция удаления счетчика
         {
             foreach (var point in impactPoints)
             {
-                if (point is Counter)
+                if (point is type)
                 {
-                    Counter counter = point as Counter;
-                    if (counter.CheckRemove(x, y))
+                    if (point.CheckRemove(x, y))
                     {
-                        impactPoints.Remove(counter);
+                        impactPoints.Remove(point);
                         break;
                     }
                 }

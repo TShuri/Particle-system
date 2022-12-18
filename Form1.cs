@@ -14,6 +14,7 @@ namespace ParticleSystem
         ChangeColor changeColor;
         Counter counter;
         Radar radar;
+        Bounce bounce;
         MouseEventHandler mouseEventHandler;
 
         Brush brush = new TextureBrush(Properties.Resources.Winter);
@@ -64,6 +65,7 @@ namespace ParticleSystem
                 SpeedMax = emitter.SpeedMax
             };
             emitter.impactPoints.Add(teleport);
+            topEmitter.impactPoints.Add(teleport);
 
             changeColor = new ChangeColor
             {
@@ -101,11 +103,12 @@ namespace ParticleSystem
             if (cbDebug.Checked)
             {
                 int x = e.X, y = e.Y;
+                //latestImg = new Bitmap(picDisplay.Image);
                 using (var g = Graphics.FromImage(picDisplay.Image))
                 {
                     foreach (var _emitter in emitters)
                     {
-                        _emitter.InfoPartical(g, x ,y);
+                        _emitter.InfoPartical(g, x, y);    
                     }
                 }
                 picDisplay.Invalidate(); // отображаем рисунок
@@ -115,18 +118,23 @@ namespace ParticleSystem
                 radar.X = e.X;
                 radar.Y = e.Y;
             }
+            if (rbBounce.Checked)
+            {
+                bounce.X = e.X;
+                bounce.Y = e.Y;
+            }
         }
 
-        private void tbDirection_Scroll(object sender, EventArgs e) // Трек-бар для направления эммитера
+        private void tbSpreading_Scroll(object sender, EventArgs e) // Трэк-бар для разброса эммитера
         {
-            emitter.Direction = tbDirection.Value;
-            lblDirection.Text = $"{tbDirection.Value}°";
+            emitter.Spreading = tbSpreading.Value;
+            lblSpreading.Text = $"{tbSpreading.Value}";
         }
 
         private void tbTeleport_Scroll(object sender, EventArgs e) // Трек-бар для радиуса телепорта
         {
             teleport.radius = tbTeleport.Value;
-            lblRadiusTP.Text = $"{tbTeleport.Value}";
+            lblRadiusTP.Text = $"{tbTeleport.Value/2}";
         }
 
         private void tbDirectionTP_Scroll(object sender, EventArgs e) // Трек-бар для направления выхода телепорта
@@ -169,11 +177,32 @@ namespace ParticleSystem
                     Y = e.Y,
                 };
                 emitter.impactPoints.Add(counter);
+                topEmitter.impactPoints.Add(counter);
             }
 
             if (e.Button == MouseButtons.Right && rbCounter.Checked) // Удаление счетчика
             {
-                emitter.DeleteCounter(e.X, e.Y);
+                emitter.Delete<Counter>(e.X, e.Y);
+                topEmitter.Delete<Counter>(e.X, e.Y);
+            }
+
+            if (e.Button == MouseButtons.Left && rbBounce.Checked) // Добавление точки отскока
+            {
+
+                var _bounce = new Bounce
+                {
+                    X = e.X,
+                    Y = e.Y,
+                    radius = bounce.radius
+                };
+                emitter.impactPoints.Add(_bounce);
+                topEmitter.impactPoints.Add(_bounce);
+            }
+
+            if (e.Button == MouseButtons.Right && rbBounce.Checked) // Удаление точки отскока
+            {
+                emitter.Delete<Bounce>(e.X, e.Y);
+                topEmitter.Delete<Bounce>(e.X, e.Y);
             }
         }
 
@@ -208,27 +237,6 @@ namespace ParticleSystem
             lblParticles.Text = $"{tbParticlesCount.Value}";
         }
 
-        private void cbDebug_CheckedChanged(object sender, EventArgs e) // Debage типо
-        {
-            if (cbDebug.Checked)
-            {
-                foreach (var _emitter in emitters)
-                {
-                    _emitter.debug = true;
-                }
-                timer1_Tick(sender, e);
-                timer1.Stop();
-            }
-            else
-            {
-                foreach (var _emitter in emitters)
-                {
-                    _emitter.debug = false;
-                }
-                timer1.Start();
-            }
-        }
-
         private void rbRadar_CheckedChanged(object sender, EventArgs e) // Вкл/выкл радара
         {
             if (rbRadar.Checked)
@@ -239,18 +247,20 @@ namespace ParticleSystem
                     Y = picDisplay.Height / 2
                 };
                 topEmitter.impactPoints.Add(radar);
+                emitter.impactPoints.Add(radar);
 
                 mouseEventHandler = new MouseEventHandler(radar_MouseWheel);
                 this.MouseWheel += mouseEventHandler;
             }
             else
             {
+                emitter.impactPoints.Remove(radar);
                 topEmitter.impactPoints.Remove(radar);
                 this.MouseWheel -= mouseEventHandler;
             }
         }
         void radar_MouseWheel(object sender, MouseEventArgs e) // Событие при прокрутке колесика для 
-        {                                                      // изменения радиуса радара
+        {                                                      // изменения радиуса
             if (e.Delta > 0)
             {
                 radar.radius += 5;
@@ -258,6 +268,123 @@ namespace ParticleSystem
             else
             {
                 radar.radius -= 5;
+            }
+        }
+
+        private void rbBounce_CheckedChanged(object sender, EventArgs e) // Вкл/выкл точек отскока
+        {
+            if (rbBounce.Checked)
+            {
+                bounce = new Bounce
+                {
+                    X = picDisplay.Width / 2,
+                    Y = picDisplay.Height / 2
+                };
+                topEmitter.impactPoints.Add(bounce);
+                emitter.impactPoints.Add(bounce);
+
+                mouseEventHandler = new MouseEventHandler(bounce_MouseWheel);
+                this.MouseWheel += mouseEventHandler;
+            }
+            else
+            {
+                emitter.impactPoints.Remove(bounce);
+                topEmitter.impactPoints.Remove(bounce);
+                this.MouseWheel -= mouseEventHandler;
+            }
+        }
+
+        void bounce_MouseWheel(object sender, MouseEventArgs e) // Событие при прокрутке колесика для 
+        {                                                      // изменения радиуса
+            if (e.Delta > 0)
+            {
+                bounce.radius += 5;
+            }
+            else
+            {
+                bounce.radius -= 5;
+            }
+        }
+
+        private void rbEmitter_CheckedChanged(object sender, EventArgs e) // Управление эммитером
+        {
+            if (rbEmitter.Checked)
+            {
+                mouseEventHandler = new MouseEventHandler(emitter_MouseWheel);
+                this.MouseWheel += mouseEventHandler;
+            }
+            else
+            {
+                this.MouseWheel -= emitter_MouseWheel;
+            }
+        }
+
+        void emitter_MouseWheel(object sender, MouseEventArgs e) // Событие при прокрутке колесика для 
+        {                                                      // изменения направления эммитера
+            if (e.Delta > 0)
+            {
+                emitter.Direction += 10;
+            }
+            else
+            {
+                emitter.Direction -= 10;
+            }
+        }
+
+        private void cbDebug_CheckedChanged(object sender, EventArgs e) // Debage типо
+        {
+            if (cbDebug.Checked)
+            {
+                foreach (var _emitter in emitters)
+                {
+                    _emitter.debug = true;
+                }
+                timer1_Tick(sender, e);
+                timer1.Stop();
+
+                buttonStep.Enabled = true;
+                buttonStep.Visible = true;
+
+                tbSimulate.Value = 10;
+                tbSimulate.Enabled = true;
+                tbSimulate.Visible = true;
+            }
+            else
+            {
+                foreach (var _emitter in emitters)
+                {
+                    _emitter.debug = false;
+                }
+                timer1.Interval = 40;
+                timer1.Start();
+
+                buttonStep.Enabled = false;
+                buttonStep.Visible = false;
+
+                tbSimulate.Enabled = false;
+                tbSimulate.Visible = false;
+            }
+        }
+
+        private void buttonStep_Click(object sender, EventArgs e)
+        {
+            timer1_Tick(sender, e);
+        }
+
+        private void tbSimulate_Scroll(object sender, EventArgs e)
+        {
+            if (tbSimulate.Value == 10)
+            {
+                timer1.Stop();
+            }
+
+            else
+            {
+                if (tbSimulate.Value > 0)
+                {
+                    timer1.Interval = 40 + tbSimulate.Value * 20;
+                    timer1.Start();
+                }
             }
         }
     }

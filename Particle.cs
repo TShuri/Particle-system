@@ -24,6 +24,8 @@ namespace ParticleSystem
         public bool debug = false;
         public bool inRadar = false;
 
+        public bool snowball = false;
+
         // конструктор по умолчанию будет создавать кастомную частицу
         public Particle()
         {

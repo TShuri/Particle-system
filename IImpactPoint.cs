@@ -28,5 +28,10 @@ namespace ParticleSystem
                 );
         }
 
+        public virtual bool CheckRemove(int mouse_x, int mouse_y)
+        {
+            return false;
+        }
+
     }
 }

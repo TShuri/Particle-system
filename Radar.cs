@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +18,7 @@ namespace ParticleSystem
 
 
         HashSet<Particle> snowballs = new HashSet<Particle>();
+        HashSet<Particle> lights = new HashSet<Particle>();
 
         public override void ImpactParticle(Particle particle)
         {
@@ -25,15 +28,29 @@ namespace ParticleSystem
 
             if (r + particle.Radius < radius / 2) // если частица попала в радар
             {
-                snowballs.Add(particle);
+
+                if (particle.snowball == true)
+                {
+                    snowballs.Add(particle);
+                }
+                else
+                {
+                    lights.Add(particle);
+                }
                 particle.color = Color.Green;
                 particle.inRadar = true;
             }
             else // если частица вышла из радиуса видимости радара
             {
-                if (snowballs.Contains(particle))
+                if (snowballs.Contains(particle) && particle.snowball == true)
                 {
                     snowballs.Remove(particle);
+                    particle.color = Color.White;
+                    particle.inRadar = false;
+                }
+                if (lights.Contains(particle) && particle.snowball == false)
+                {
+                    lights.Remove(particle);
                     particle.color = Color.White;
                     particle.inRadar = false;
                 }
@@ -42,7 +59,7 @@ namespace ParticleSystem
 
         public override void Render(Graphics g)
         {
-            g.DrawEllipse(
+            g.DrawEllipse( // Большой круг
                    new Pen(Color.Green, 2),
                    X - radius / 2,
                    Y - radius / 2,
@@ -50,23 +67,23 @@ namespace ParticleSystem
                    radius
                );
 
-            g.DrawEllipse(
+            g.DrawEllipse( // Средний круг
                    new Pen(Color.Green, 2),
-                   X - radius / 2 + 15,
-                   Y - radius / 2 + 15,
-                   radius - 30,
-                   radius - 30
+                   X - radius / 3,
+                   Y - radius / 3,
+                   radius - radius / 3,
+                   radius - radius / 3
                );
 
-            g.DrawEllipse(
+            g.DrawEllipse( // Малый круг
                    new Pen(Color.Green, 2),
-                   X - radius / 2 + 30,
-                   Y - radius / 2 + 30,
-                   radius - 60,
-                   radius - 60
+                   X - radius / 4,
+                   Y - radius / 4,
+                   radius - radius / 2,
+                   radius - radius / 2
                );
 
-            g.DrawLine(
+            g.DrawLine( // Горизонталь
                 new Pen(Color.Green, 2),
                 (int)X - radius / 2,
                 (int)Y,
@@ -74,7 +91,7 @@ namespace ParticleSystem
                 (int)(Y + (radius / 2) * Math.Sin(0))
                 );
 
-            g.DrawLine(
+            g.DrawLine( // Вертикаль
                 new Pen(Color.Green, 2),
                 (int)X,
                 (int)Y - radius / 2,
@@ -82,28 +99,29 @@ namespace ParticleSystem
                 (int)Y + radius / 2
                 );
 
-            angle += 0.1;
-            if (angle == 360)
-            {
-                angle = 0;
-            }
-
-            g.DrawLine(
+            g.DrawLine( // Стрелка
                 new Pen(Color.Red, 2),
-                (int)X, 
+                (int)X,
                 (int)Y,
-                (int)(X + (radius/2) * Math.Cos(angle)),
-                (int)(Y + (radius/2) * Math.Sin(angle))
+                (int)(X + (radius / 2) * Math.Cos(angle)),
+                (int)(Y + (radius / 2) * Math.Sin(angle))
                 );
 
             g.DrawString(
             $"Снежков: {snowballs.Count}\n" +
-            $"Огоньков: ",
+            $"Огоньков: {lights.Count}",
             new Font("Verdana", 10), // шрифт и его размер
             new SolidBrush(Color.Black), // цвет шрифта
-            X-60, // расположение в пространстве
-            Y+50
+            X-50, // расположение в пространстве
+            Y+radius/2
             );
+
+            if (angle == 360)
+            {
+                angle = 0;
+            }
+            angle += 0.05;
+
         }
     }
 }

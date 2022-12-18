@@ -20,6 +20,8 @@ namespace ParticleSystem
 
             particle.SpeedY = 1; // падаем вниз по умолчанию
             particle.SpeedX = Particle.rand.Next(-2, 2); // разброс влево и вправа у частиц 
+
+            particle.snowball = true;
         }
     }
 }
