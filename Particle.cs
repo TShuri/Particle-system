@@ -16,15 +16,15 @@ namespace ParticleSystem
         public float SpeedY; // скорость перемещения по оси Y
 
         public float Life; // запас здоровья частицы
-        public Color color;
+        public Color color; // цвет
 
         // добавили генератор случайных чисел
         public static Random rand = new Random();
 
-        public bool debug = false;
-        public bool inRadar = false;
+        public bool debug = false; // если включен дебаг режим
+        public bool inRadar = false; // если точка в радаре
 
-        public bool snowball = false;
+        public bool snowball = false; // если точка является снежком
 
         // конструктор по умолчанию будет создавать кастомную частицу
         public Particle()
@@ -58,12 +58,12 @@ namespace ParticleSystem
             b.Dispose();
         }
 
-        public void DrawSpeedVector(Graphics g)
+        public void DrawSpeedVector(Graphics g) // отображение вектора направления
         {
             g.DrawLine(new Pen(Color.OrangeRed, 1), X, Y, (int)(X + SpeedX * 4), (int)(Y + SpeedY * 4));
         }
 
-        public void DrawInfo(Graphics g, int _x, int _y)
+        public void DrawInfo(Graphics g, int _x, int _y) // отображение информации о точке
         {
             var x = Math.Abs(X - _x);
             var y = Math.Abs(Y - _y);
@@ -106,15 +106,15 @@ namespace ParticleSystem
         {
             float k = Math.Min(1f, Life / 100);
 
-            var updateColor = MixColor(ToColor, FromColor, k); // Базовый цвет точки совпадает с fromColor
+            var updateColor = MixColor(ToColor, FromColor, k); // базовый цвет точки совпадает с fromColor
             
             // так как k уменьшается от 1 до 0, то порядок цветов обратный
-            if (color != FromColor) // (Точка закрашивания поменяла цвет) Если базовый цвет не равен fromColor
+            if (color != FromColor) // точка закрашивания меняет цвет частиы
             {
                 updateColor = MixColor(ToColor, color, k);
             }
             
-            if (inRadar) // (Радар закрасил точку)
+            if (inRadar) // радар закрашивает точку
             {
                 updateColor = MixColor(color, color, k);
             }
@@ -123,7 +123,7 @@ namespace ParticleSystem
 
             g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);
 
-            if (debug)
+            if (debug) // дебаг режим - рисуем векторы направления частиц
             {
                 DrawSpeedVector(g);
             }

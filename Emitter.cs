@@ -124,7 +124,7 @@ namespace ParticleSystem
             }
         }
 
-        public void Delete<type>(int x, int y) // Функция удаления счетчика
+        public void Delete<type>(int x, int y) // Функция удаления IImpactPoint объекта
         {
             foreach (var point in impactPoints)
             {

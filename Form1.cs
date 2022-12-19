@@ -7,17 +7,17 @@ namespace ParticleSystem
 {
     public partial class Form1 : Form
     {
-        List<Emitter> emitters = new List<Emitter>();
-        Emitter emitter;
-        Emitter topEmitter;
-        Teleport teleport;
-        ChangeColor changeColor;
-        Counter counter;
-        Radar radar;
-        Bounce bounce;
-        MouseEventHandler mouseEventHandler;
+        List<Emitter> emitters = new List<Emitter>(); // Список эмиттеров
+        Emitter emitter; // Эммитер
+        Emitter topEmitter; // Снег
+        Teleport teleport; // Телепорт
+        ChangeColor changeColor; // Закрашиватель
+        Counter counter; // Счетчик
+        Radar radar; // Радар
+        Bounce bounce; // Точка отскока
+        MouseEventHandler mouseEventHandler; // Событие мыши для прокрутки мыши
 
-        Brush brush = new TextureBrush(Properties.Resources.Winter);
+        Brush brush = new TextureBrush(Properties.Resources.Winter); // Загружаем фон из ресурсов
 
         public Form1()
         {
@@ -77,7 +77,7 @@ namespace ParticleSystem
             emitter.impactPoints.Add(changeColor);
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e) // Каждый тик таймера
         {
             emitter.UpdateState(); // Обновление эмиттера
             topEmitter.UpdateState();
@@ -94,13 +94,13 @@ namespace ParticleSystem
         }
 
         private void picDisplay_MouseMove(object sender, MouseEventArgs e) // Следование за мышкой
-        {
-            if (rbEmitter.Checked)
+        {                                                                  // объектом который выбран в control
+            if (rbEmitter.Checked) // Следование эмиттера за мышкой
             {
                 emitter.X = e.X;
                 emitter.Y = e.Y;
             }
-            if (cbDebug.Checked)
+            if (cbDebug.Checked) // Отображение информации о точке при наведении на нее
             {
                 int x = e.X, y = e.Y;
                 //latestImg = new Bitmap(picDisplay.Image);
@@ -113,12 +113,12 @@ namespace ParticleSystem
                 }
                 picDisplay.Invalidate(); // отображаем рисунок
             }
-            if (rbRadar.Checked)
+            if (rbRadar.Checked) // Следование радара за мышкой
             {
                 radar.X = e.X;
                 radar.Y = e.Y;
             }
-            if (rbBounce.Checked)
+            if (rbBounce.Checked) // Следование точки отскока за мышкой
             {
                 bounce.X = e.X;
                 bounce.Y = e.Y;
@@ -260,7 +260,7 @@ namespace ParticleSystem
             }
         }
         void radar_MouseWheel(object sender, MouseEventArgs e) // Событие при прокрутке колесика для 
-        {                                                      // изменения радиуса
+        {                                                      // изменения радиуса радара
             if (e.Delta > 0)
             {
                 radar.radius += 5;
@@ -295,7 +295,7 @@ namespace ParticleSystem
         }
 
         void bounce_MouseWheel(object sender, MouseEventArgs e) // Событие при прокрутке колесика для 
-        {                                                      // изменения радиуса
+        {                                                      // изменения радиуса точки отскока
             if (e.Delta > 0)
             {
                 bounce.radius += 5;
@@ -366,12 +366,12 @@ namespace ParticleSystem
             }
         }
 
-        private void buttonStep_Click(object sender, EventArgs e)
+        private void buttonStep_Click(object sender, EventArgs e) // Шаг симуляции
         {
             timer1_Tick(sender, e);
         }
 
-        private void tbSimulate_Scroll(object sender, EventArgs e)
+        private void tbSimulate_Scroll(object sender, EventArgs e) // Регулирование скорости симуляции
         {
             if (tbSimulate.Value == 10)
             {

@@ -28,7 +28,7 @@ namespace ParticleSystem
                 );
         }
 
-        public virtual bool CheckRemove(int mouse_x, int mouse_y)
+        public virtual bool CheckRemove(int mouse_x, int mouse_y) // метод для проверки удаления
         {
             return false;
         }

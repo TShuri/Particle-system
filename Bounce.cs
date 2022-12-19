@@ -8,9 +8,9 @@ namespace ParticleSystem
 {
     public class Bounce : IImpactPoint
     {
-        public int radius = 100;
-        public float angle = 0;
-        private bool touch = false;
+        public int radius = 100; // радиус точки
+        public float angle = 0; // угол отражения
+        private bool touch = false; // было ли касание
 
         public override void ImpactParticle(Particle particle)
         {
@@ -38,9 +38,9 @@ namespace ParticleSystem
             }
         }
 
-        public override bool CheckRemove(int mouse_x, int mouse_y) // Проверяем удаляем точку по которому кликнули
+        public override bool CheckRemove(int mouse_x, int mouse_y) // проверяем удаляем точку по которому кликнули
         {
-            if (((mouse_x - X) * (mouse_x - X) + (mouse_y - Y) * (mouse_y - Y)) <  radius*radius) // Если кликнули по точке
+            if (((mouse_x - X) * (mouse_x - X) + (mouse_y - Y) * (mouse_y - Y)) <  radius*radius) // если кликнули по точке
             {
                 return true;
             }

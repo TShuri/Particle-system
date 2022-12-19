@@ -11,14 +11,12 @@ namespace ParticleSystem
 {
     public class Radar : IImpactPoint
     {
-        public int radius = 100;
-        //public int MinRadius = 50;
-        //public int MaxRadius = 200;
-        double angle = 0;
+        public int radius = 100; // радиус радара
+        double angle = 0; // угол для рисования движущейся стрелки
 
 
-        HashSet<Particle> snowballs = new HashSet<Particle>();
-        HashSet<Particle> lights = new HashSet<Particle>();
+        HashSet<Particle> snowballs = new HashSet<Particle>(); // снежки
+        HashSet<Particle> lights = new HashSet<Particle>(); // огоньки
 
         public override void ImpactParticle(Particle particle)
         {
@@ -29,7 +27,7 @@ namespace ParticleSystem
             if (r + particle.Radius < radius / 2) // если частица попала в радар
             {
 
-                if (particle.snowball == true)
+                if (particle.snowball == true) // если частика является снежком
                 {
                     snowballs.Add(particle);
                 }
@@ -59,7 +57,7 @@ namespace ParticleSystem
 
         public override void Render(Graphics g)
         {
-            g.DrawEllipse( // Большой круг
+            g.DrawEllipse( // большой круг
                    new Pen(Color.Green, 2),
                    X - radius / 2,
                    Y - radius / 2,
@@ -67,7 +65,7 @@ namespace ParticleSystem
                    radius
                );
 
-            g.DrawEllipse( // Средний круг
+            g.DrawEllipse( // средний круг
                    new Pen(Color.Green, 2),
                    X - radius / 3,
                    Y - radius / 3,
@@ -75,7 +73,7 @@ namespace ParticleSystem
                    radius - radius / 3
                );
 
-            g.DrawEllipse( // Малый круг
+            g.DrawEllipse( // малый круг
                    new Pen(Color.Green, 2),
                    X - radius / 4,
                    Y - radius / 4,
@@ -83,7 +81,7 @@ namespace ParticleSystem
                    radius - radius / 2
                );
 
-            g.DrawLine( // Горизонталь
+            g.DrawLine( // горизонталь
                 new Pen(Color.Green, 2),
                 (int)X - radius / 2,
                 (int)Y,
@@ -91,7 +89,7 @@ namespace ParticleSystem
                 (int)(Y + (radius / 2) * Math.Sin(0))
                 );
 
-            g.DrawLine( // Вертикаль
+            g.DrawLine( // вертикаль
                 new Pen(Color.Green, 2),
                 (int)X,
                 (int)Y - radius / 2,
@@ -99,7 +97,7 @@ namespace ParticleSystem
                 (int)Y + radius / 2
                 );
 
-            g.DrawLine( // Стрелка
+            g.DrawLine( // стрелка
                 new Pen(Color.Red, 2),
                 (int)X,
                 (int)Y,
@@ -107,7 +105,7 @@ namespace ParticleSystem
                 (int)(Y + (radius / 2) * Math.Sin(angle))
                 );
 
-            g.DrawString(
+            g.DrawString( // информация
             $"Снежков: {snowballs.Count}\n" +
             $"Огоньков: {lights.Count}",
             new Font("Verdana", 10), // шрифт и его размер

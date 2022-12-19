@@ -22,7 +22,7 @@ namespace ParticleSystem
 
             if (r + particle.Radius < radius / 2) // если частица оказалось внутри окружности
             {
-                particle.color = this.color;   
+                particle.color = this.color; // меняем цвет у частицы
             }
         }
 

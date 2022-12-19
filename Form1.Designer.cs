@@ -279,9 +279,9 @@
             this.lblRadiusTP.AutoSize = true;
             this.lblRadiusTP.Location = new System.Drawing.Point(757, 763);
             this.lblRadiusTP.Name = "lblRadiusTP";
-            this.lblRadiusTP.Size = new System.Drawing.Size(42, 25);
+            this.lblRadiusTP.Size = new System.Drawing.Size(32, 25);
             this.lblRadiusTP.TabIndex = 21;
-            this.lblRadiusTP.Text = "100";
+            this.lblRadiusTP.Text = "50";
             // 
             // lblDirectionTP
             // 

@@ -9,8 +9,8 @@ namespace ParticleSystem
 {
     public class Teleport : IImpactPoint
     {
-        public float outX, outY; // Координаты выхода телепорта
-        public float radius = 100;
+        public float outX, outY; // координаты выхода телепорта
+        public float radius = 100; // радиус телепорта
 
         public int Direction = 0;
         public int Spreading = 360;
@@ -41,15 +41,14 @@ namespace ParticleSystem
 
         public override void Render(Graphics g)
         {
-            // буду рисовать окружность с диаметром равным Power
-            g.DrawEllipse(
+            g.DrawEllipse( // вход телепорта
                    new Pen(Color.Blue, 2),
                    X - radius / 2,
                    Y - radius / 2,
                    radius,
                    radius
                );
-            g.DrawEllipse(
+            g.DrawEllipse( // выход телепорта
                    new Pen(Color.Yellow, 2),
                    outX - radius / 2,
                    outY - radius / 2,
